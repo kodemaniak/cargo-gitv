@@ -9,6 +9,14 @@ fn main() -> Result<()> {
     let repo = Repository::open("./")
       .context("Could not find a git repository. Please run from the top-level folder of a git repository.")?;
 
+    let mut sha = repo
+        .head()?
+        .target()
+        .ok_or_else(|| anyhow!("Could not determin git commit SHA!"))?
+        .to_string();
+    sha.truncate(7);
+    println!("short sha: {}", sha);
+
     let mut tags: Vec<Version> = repo
         .tag_names(Some("v*"))?
         .iter()
@@ -28,7 +36,10 @@ fn main() -> Result<()> {
     let timestamp_formatted = timestamp.format("%Y%m%d%H%M%S");
     println!("current timesatmp: {}", timestamp_formatted);
 
-    let dev_version = format!("{}-{}", current_release_version, timestamp_formatted);
+    let dev_version = format!(
+        "{}+{}.{}",
+        current_release_version, timestamp_formatted, sha
+    );
     println!("{}", dev_version);
 
     Ok(())
