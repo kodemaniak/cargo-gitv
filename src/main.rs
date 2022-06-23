@@ -1,46 +1,17 @@
-use std::time::SystemTime;
-
-use anyhow::{anyhow, Context, Result};
-use chrono::{DateTime, Utc};
-use git2::Repository;
-use semver::Version;
+use anyhow::Result;
+use cargo_gitv::{
+    build_context::load_build_context,
+    cli::{Cli, Command},
+    version::version,
+};
+use clap::StructOpt;
 
 fn main() -> Result<()> {
-    let repo = Repository::open("./")
-      .context("Could not find a git repository. Please run from the top-level folder of a git repository.")?;
+    let cli = Cli::parse();
 
-    let mut sha = repo
-        .head()?
-        .target()
-        .ok_or_else(|| anyhow!("Could not determin git commit SHA!"))?
-        .to_string();
-    sha.truncate(7);
-    println!("short sha: {}", sha);
+    let build_context = load_build_context()?;
 
-    let mut tags: Vec<Version> = repo
-        .tag_names(Some("v*"))?
-        .iter()
-        .flatten()
-        .flat_map(|v| v.strip_prefix('v'))
-        .flat_map(semver::Version::parse)
-        .collect();
-    tags.sort();
-    tags.reverse();
-
-    let current_release_version = tags.first().ok_or_else(|| {
-        anyhow!("No current release version found! Needs at least one version tag.",)
-    })?;
-    println!("current release verion: {}", current_release_version);
-
-    let timestamp: DateTime<Utc> = SystemTime::now().into();
-    let timestamp_formatted = timestamp.format("%Y%m%d%H%M%S");
-    println!("current timesatmp: {}", timestamp_formatted);
-
-    let dev_version = format!(
-        "{}+{}.{}",
-        current_release_version, timestamp_formatted, sha
-    );
-    println!("{}", dev_version);
-
-    Ok(())
+    match cli.command() {
+        Command::Version => version(&build_context),
+    }
 }
