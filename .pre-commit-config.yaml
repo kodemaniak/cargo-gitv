@@ -1,0 +1,13 @@
+repos:
+  - repo: https://github.com/kodemaniak/pre-commit-rust
+    rev: v0.1.0
+    hooks:
+      - id: cargo-fmt
+      - id: cargo-udeps
+      - id: cargo-audit
+        args:
+          - --ignore
+          - RUSTSEC-2020-0071
+      - id: cargo-check
+      - id: cargo-clippy
+      - id: cargo-test
