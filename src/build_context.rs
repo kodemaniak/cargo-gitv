@@ -15,6 +15,22 @@ pub struct BuildContext {
     pub cargo_version: Version,
 }
 
+impl BuildContext {
+    pub fn dev_version(&self) -> Result<Version> {
+        let timestamp: DateTime<Utc> = self
+            .git_commit_timestamp
+            .unwrap_or_else(|| SystemTime::now().into());
+        let timestamp_formatted = timestamp.format("%Y%m%d%H%M%S");
+
+        let dev_version = format!(
+            "{}-dev.{}+{}",
+            self.cargo_version, timestamp_formatted, self.git_sha
+        );
+
+        Version::parse(&dev_version).with_context(|| "Failed to generate valid dev version.")
+    }
+}
+
 pub fn load_build_context() -> Result<BuildContext> {
     let mut cmd = cargo_metadata::MetadataCommand::new();
     cmd.manifest_path("./Cargo.toml");

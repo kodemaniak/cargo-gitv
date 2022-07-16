@@ -25,6 +25,8 @@ impl Cli {
 
 #[derive(Subcommand)]
 pub enum Command {
-    /// does testing things
+    /// Verify that the version computed from git is consistent with the Cargo version.
+    Verify,
+    /// Compute the current version based on git and Cargo metadata.
     Version,
 }
