@@ -1,9 +1,25 @@
 [package]
 name = "cargo-gitv"
-version = "0.1.0"
+description = "Reasonable and opinionated version management based on Cargo and Git metadata."
+version = "0.1.1"
+authors = [ "Carsten Saathoff <carsten@kodemaniak.de"]
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/kodemaniak/cargo-gitv"
+repository = "https://github.com/kodemaniak/cargo-gitv"
+readme = "README.md"
+categories = [ "development-tools:cargo-subcommand" ]
+keywords = [ "cargo-subcommand", "release", "ci", "semantic-versions" ]
 edition = "2021"
+exclude = [
+    ".github/",
+    ".pre-commit-config.yaml" ,
+    ".gitignore",
+    "cliff.toml",
+    "renovate.json"
+]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+maintenance = { status = "actively-developed" }
 
 [dependencies]
 anyhow = "1.0.57"
