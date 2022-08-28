@@ -1,13 +1,13 @@
 [package]
 name = "cargo-gitv"
 description = "Reasonable and opinionated version management based on Cargo and Git metadata."
-version = "0.1.1"
+version = "0.1.2"
 authors = [ "Carsten Saathoff <carsten@kodemaniak.de"]
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/kodemaniak/cargo-gitv"
 repository = "https://github.com/kodemaniak/cargo-gitv"
 readme = "README.md"
-categories = [ "development-tools:cargo-subcommand" ]
+categories = [ "development-tools::build-utils", "development-tools::cargo-plugins" ]
 keywords = [ "cargo-subcommand", "release", "ci", "semantic-versions" ]
 edition = "2021"
 exclude = [
