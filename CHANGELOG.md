@@ -1,6 +1,30 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2022-08-29
+
+### Bug Fixes
+
+- Fixed github workflows to publish the crate.
+
+### Miscellaneous Tasks
+
+- Git2 dependency with vendored libgit2.
+
+## [0.1.1] - 2022-08-28
+
+### Bug Fixes
+
+- Update rust crate anyhow to 1.0.62
+- Update rust crate chrono to 0.4.22 (#2)
+- Update rust crate semver to 1.0.13 (#5)
+- Update rust crate clap to 3.2.17 (#4)
+- Update rust crate git2 to 0.15.0 (#6)
+
+### Documentation
+
+- Improved description of project goals and how it works.
+
 ## [0.1.0] - 2022-07-16
 
 ### Features
