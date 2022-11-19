@@ -24,7 +24,7 @@ maintenance = { status = "actively-developed" }
 [dependencies]
 anyhow = "1.0.66"
 cargo_metadata = "0.15.1"
-chrono = "0.4.22"
+chrono = "0.4.23"
 clap = { version = "4.0.26", features = [ "derive" ] }
 git2 = { version = "0.15.0", features = [ "vendored-libgit2" ] }
 semver = "1.0.14"
