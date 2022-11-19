@@ -27,4 +27,4 @@ cargo_metadata = "0.15.0"
 chrono = "0.4.22"
 clap = { version = "4.0.18", features = [ "derive" ] }
 git2 = { version = "0.15.0", features = [ "vendored-libgit2" ] }
-semver = "1.0.13"
+semver = "1.0.14"
