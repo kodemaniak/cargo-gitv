@@ -5,7 +5,7 @@ use cargo_gitv::{
     verify::verify,
     version::version,
 };
-use clap::StructOpt;
+use clap::Parser;
 
 fn main() -> Result<()> {
     let cli = Cli::parse();

@@ -1,11 +1,13 @@
 use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
-#[clap(author, version, about, long_about = None)]
+#[command(name = "gitv", bin_name = "gitv")]
+#[command(author, version, about, long_about = None)]
 pub struct Cli {
     /// WHen we are called from cargo, the first argument is the subcommand. We just parse this for compatibility.
-    #[clap(value_parser)]
+    #[arg(hide = true, value_parser = clap::builder::PossibleValuesParser::new(["gitv"]))]
     bin: Option<String>,
+
     #[clap(subcommand)]
     command: Command,
 }
