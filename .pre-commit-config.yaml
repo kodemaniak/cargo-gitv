@@ -10,4 +10,8 @@ repos:
           - RUSTSEC-2020-0071
       - id: cargo-check
       - id: cargo-clippy
+        args:
+          - --
+          - -D
+          - warnings
       - id: cargo-test
