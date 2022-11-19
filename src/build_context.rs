@@ -92,8 +92,11 @@ fn get_git_commit_timestamp(git_repository: &Repository) -> Result<DateTime<Utc>
     let head_oid = git_repository.refname_to_id(head_refspec)?;
     let commit = git_repository.find_commit(head_oid)?;
     let commit_timestamp = commit.time().seconds();
-    let timestamp: DateTime<Utc> =
-        DateTime::<Utc>::from_utc(NaiveDateTime::from_timestamp(commit_timestamp, 0), Utc);
+    let timestamp: DateTime<Utc> = DateTime::<Utc>::from_utc(
+        NaiveDateTime::from_timestamp_millis(commit_timestamp)
+            .ok_or(anyhow!("Failed to parse commit timestamp!"))?,
+        Utc,
+    );
 
     Ok(timestamp)
 }

@@ -1,4 +1,4 @@
-name: Release
+name: release
 
 on:
   push:
@@ -37,11 +37,20 @@ jobs:
           toolchain: stable
           override: true
           components: rustfmt, clippy
+      - uses: actions-rs/install@v0.1
+        with:
+          crate: cargo-gitv
+          version: latest
       - name: fmt check
         uses: actions-rs/cargo@v1
         with:
           command: fmt
           args: --all -- --check
+      - name: verify version
+        uses: actions-rs/cargo@v1
+        with:
+          command: gitv
+          args: verify
       - name: check
         uses: actions-rs/cargo@v1
         with:
