@@ -6,26 +6,6 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  verify-version:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: checkout repository
-        uses: actions/checkout@v3
-
-      - name: download dasel
-        run: |
-          curl -sL https://github.com/TomWright/dasel/releases/download/v1.21.2/dasel_linux_amd64 --output dasel && \
-          chmod +x dasel && \
-          ./dasel --version
-
-      - name: verify version
-        run: |
-          export CARGO_VERSION=`./dasel select -f Cargo.toml -s '.package.version'`
-          export TAG_VERSION=${GITHUB_REF_NAME:1} # remove leading 'v'
-          echo "Cargo version: $CARGO_VERSION"
-          echo "Tag version: $TAG_VERSION"
-          test $CARGO_VERSION = $TAG_VERSION
-
   release:
     runs-on: ubuntu-20.04
     needs: verify-version
@@ -41,20 +21,16 @@ jobs:
         with:
           crate: cargo-gitv
           version: latest
-      - name: fmt check
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
       - name: verify version
         uses: actions-rs/cargo@v1
         with:
           command: gitv
           args: verify
-      - name: check
+      - name: fmt check
         uses: actions-rs/cargo@v1
         with:
-          command: check
+          command: fmt
+          args: --all -- --check
       - name: clippy
         uses: actions-rs/cargo@v1
         with:
